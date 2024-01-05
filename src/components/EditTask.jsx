@@ -2,11 +2,12 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { DarkModeContext } from "./Context";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditTask = () => {
   const params = useParams();
-  const { darkMode } = useContext(DarkModeContext);
+  const navigate = useNavigate();
+  const { darkMode, fetchTasks } = useContext(DarkModeContext);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -34,7 +35,10 @@ const EditTask = () => {
           `http://localhost:5050/tasks/edit-task/${params.id}`,
           values
         );
+        fetchTasks();
         formikbag.resetForm();
+        navigate("/dashboard");
+        fetchTasks();
       } catch (error) {
         console.log(error);
         alert("something went wrong");

@@ -1,23 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { DarkModeContext } from "./Context";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ViewTask = () => {
-  const  {viewTask} = useContext(DarkModeContext);
+  const params = useParams();
+  const { viewTask, setViewTask } = useContext(DarkModeContext);
 
-  
-  if (!viewTask) {
+  const fetchSingletask = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5050/tasks/${params.id}`
+      );
+      setViewTask(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchSingletask();
+  }, [params.id, viewTask]);
+
+  if (!viewTask || viewTask.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="container-fluid">
-      {viewTask.map((item, index) => (
-        <div key={index} className="card">
-          <h1 className="card-header">{item.title}</h1>
-          <p className="card-body">{item.about}</p>
-          <footer className="blockquote-footer">{item.date}</footer>
-        </div>
-      ))}
+    <div key={viewTask.id} className="container-fluid">
+      <div className="card colorbg">
+        <h1 className="card-header text-center">
+          {" "}
+          <b>Title</b> : {viewTask.title}
+        </h1>
+        <p className="card-body  text-center">
+          {" "}
+          <b>About</b> : {viewTask.about}
+        </p>
+        <footer className="blockquote-footer  text-center">
+          {" "}
+          <b>Exp-Date</b> : {viewTask.date}
+        </footer>
+      </div>
     </div>
   );
 };

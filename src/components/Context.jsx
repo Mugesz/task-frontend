@@ -25,42 +25,11 @@ export const DarkModeProvider = ({ children }) => {
     }
   };
 
-  const fetchSingletask = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5050/tasks/${params._id}`
-      );
-      console.log(response);
-      console.log(response.data);
-      setViewTask(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteTask = async () => {
-    try {
-      await axios.delete(`http://localhost:5050/tasks/${params.id}`);
-      alert("Task Deleted");
-      fetchTasks();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     if (tasks.length === 0) {
       fetchTasks();
     }
-    if (params.id) {
-      fetchSingletask();
-    }
-
-    if (params.id){
-      deleteTask();
-    }
-   
-  }, [tasks, viewTask, params.id]);
+  }, [tasks, params.id]);
 
   return (
     <DarkModeContext.Provider
@@ -70,8 +39,7 @@ export const DarkModeProvider = ({ children }) => {
         tasks,
         fetchTasks,
         viewTask,
-        fetchSingletask,
-        deleteTask,
+        setViewTask,
       }}
     >
       <div className={themeClass}>{children}</div>

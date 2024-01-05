@@ -50,6 +50,10 @@ body.light {
   color: #bdc3c7 !important;
 }
 
-.leftmargin{
+.leftmargin {
   margin-left: 10px;
+}
+.colorbg {
+  background: #ecf0f1 !important;
+  border: #bdc3c7 !important;
 }

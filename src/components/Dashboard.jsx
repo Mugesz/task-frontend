@@ -1,14 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DarkModeContext } from "./Context";
+import axios from "axios";
 
 const Dashboard = () => {
   const params = useParams();
-  const { fetchSingletask, tasks, deleteTask } = useContext(DarkModeContext);
+  const { tasks, fetchTasks } = useContext(DarkModeContext);
 
   if (!tasks) {
     return <div className="text-sucess">Loading...</div>;
   }
+
+  const deleteTask = async () => {
+    try {
+      await axios.delete(`http://localhost:5050/tasks/${params.id}`);
+      alert("Task Deleted");
+      fetchTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   return (
     <div className="container-fluid">
@@ -29,15 +42,10 @@ const Dashboard = () => {
                 </Link>
 
                 <Link to={`/tasks/${item._id}`}>
-                  <button
-                    className="btn btn-info leftmargin"
-                    onClick={() => fetchSingletask(item._id)}
-                  >
-                    View
-                  </button>
+                  <button className="btn btn-info leftmargin">View</button>
                 </Link>
                 <button
-                  onClick={() => deleteTask(params.id)}
+                  onClick={() => deleteTask(item._id)}
                   className="btn btn-danger leftmargin"
                 >
                   Delete
