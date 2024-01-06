@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { config } from "../confij";
 
 export const DarkModeContext = createContext();
 
@@ -18,7 +19,7 @@ export const DarkModeProvider = ({ children }) => {
 
   const fetchTasks = async () => {
     try {
-      const responce = await axios.get("http://localhost:5050/tasks");
+      const responce = await axios.get(`${config.taskApi}/task`);
       setTasks(responce.data);
     } catch (error) {
       console.log(error);
