@@ -19,7 +19,7 @@ export const DarkModeProvider = ({ children }) => {
 
   const fetchTasks = async () => {
     try {
-      const responce = await axios.get(`${config.Api}/task`);
+      const responce = await axios.get(`${config.Api}/tasks`);
       setTasks(responce.data);
     } catch (error) {
       console.log(error);
