@@ -1,29 +1,27 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "./authService";
 import { DarkModeContext } from "./Context";
 
 const Navbar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+
   useEffect(() => {
     document.body.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
   const handleLogout = () => {
-    alert("Are you sure want to logout")
+    alert("Are you sure you want to logout");
     logout();
-    navigate("/")
-  
+    navigate("/");
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg bgforNav fixed-top">
       <div className="container-fluid">
         <Link
-          className={
-            darkMode ? "navbar-brand btn dark" : "navbar-brand btn light"
-          }
+          className="btn text-light"
           to={"/dashboard"}
         >
           TASKS
@@ -40,11 +38,11 @@ const Navbar = () => {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
               <Link
                 className={
-                  darkMode ? "nav-link text-light" : "nav-link text-dark "
+                  darkMode ? "nav-link text-light" : "nav-link text-light "
                 }
                 to="/create-task"
                 aria-current="page"
@@ -52,9 +50,11 @@ const Navbar = () => {
                 Create task
               </Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <button
-                className={darkMode ? " btn btn-light" : "btn btn-secondary"}
+                className={
+                  darkMode ? " btn btn-light" : "btn btn-secondary"
+                }
                 onClick={toggleDarkMode}
               >
                 {darkMode ? "Light" : "Dark"}

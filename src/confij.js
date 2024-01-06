@@ -1,4 +1,4 @@
 export const config = {
-  authApi: "http://localhost:5050",
-  taskApi: "http://localhost:5050",
+  authApi: "https://mugesh-task-management.onrender.com",
+  taskApi: "https://mugesh-task-management.onrender.com",
 };

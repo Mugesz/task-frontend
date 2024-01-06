@@ -55,7 +55,7 @@ const Dashboard = () => {
         <h2>{categoryTitle}</h2>
         {taskList.length > 0 ? (
           taskList.map((item, index) => (
-            <div className="card" key={index}>
+            <div className="card bgcolour mt-2" key={index}>
               <div className="card-body" style={{ marginBottom: "15px" }}>
                 <h3 className="card-title">Title: {item.title}</h3>
                 <p className="card-text">To Do: {item.about}</p>

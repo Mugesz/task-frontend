@@ -57,3 +57,17 @@ body.light {
   background: #ecf0f1 !important;
   border: #bdc3c7 !important;
 }
+
+.bgcolour {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(198, 180, 216, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+}
+
+.bgforNav {
+  background: #34495e !important;
+}

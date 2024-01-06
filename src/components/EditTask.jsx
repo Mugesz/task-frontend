@@ -64,7 +64,7 @@ const EditTask = () => {
           darkMode ? "dark" : "light"
         }`}
       >
-        <div className="container mt-3 shadow p-3 mb-5 rounded">
+        <div className="container mt-3 shadow p-3 mb-5 rounded bg-warning">
           <div className="row justify-content-center">
             <div className="col-md-6">
               <h3 className="text-center">

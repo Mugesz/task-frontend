@@ -9,7 +9,7 @@ const ProtuctedRoute = () => {
     <>
       {auth ? (
         <div>
-          <div style={{ overflowY: "auto", maxHeight: "100vh" }}>
+          <div style={{marginTop:"50px"}}>
             <Navbar />
           </div>
           <hr style={{ color: "grey" }} />
