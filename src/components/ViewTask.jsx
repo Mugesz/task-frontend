@@ -10,7 +10,7 @@ const ViewTask = () => {
 
   const fetchSingletask = async () => {
     try {
-      const response = await axios.get(`${config.taskApi}/tasks/${id}`);
+      const response = await axios.get(`${config.Api}/tasks/${id}`);
       setViewTask(response.data);
     } catch (error) {
       console.log(error);

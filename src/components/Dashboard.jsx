@@ -37,7 +37,7 @@ const Dashboard = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`${config.taskApi}/tasks/${id}`);
+      await axios.delete(`${config.Api}/tasks/${id}`);
       alert("Task Deleted");
       fetchTasks();
     } catch (error) {

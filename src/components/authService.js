@@ -3,7 +3,7 @@ import { config } from "../confij";
 
 export const login = async (value) => {
   try {
-    const response = await axios.post(`${config.authApi}/login`, value);
+    const response = await axios.post(`${config.Api}/login`, value);
 
     if (!response || !response.data) {
       throw new Error("Invalid response received");

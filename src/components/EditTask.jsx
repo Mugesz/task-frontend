@@ -33,7 +33,7 @@ const EditTask = () => {
     onSubmit: async (values, formikbag) => {
       try {
         await axios.put(
-          `${config.taskApi}/tasks/edit-task/${id}`,
+          `${config.Api}/tasks/edit-task/${id}`,
           values
         );
 
@@ -49,7 +49,7 @@ const EditTask = () => {
   useEffect(() => {
     const fetchSingletask = async () => {
       try {
-        const response = await axios.get(`${config.taskApi}/tasks/${id}`);
+        const response = await axios.get(`${config.Api}/tasks/${id}`);
         formik.setValues(response.data);
       } catch (error) {
         console.log(error);

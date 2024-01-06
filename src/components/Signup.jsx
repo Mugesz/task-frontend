@@ -44,7 +44,7 @@ const Signup = () => {
     },
     onSubmit: async (values,formikbag) => {
       try {
-        await axios.post(`${config.authApi}/signup`, values);
+        await axios.post(`${config.Api}/signup`, values);
         alert("user created");
         formikbag.resetForm();
       } catch (error) {

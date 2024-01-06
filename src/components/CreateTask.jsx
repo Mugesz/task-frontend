@@ -31,7 +31,7 @@ const CreateTask = () => {
     },
     onSubmit: async (values, formikbag) => {
       try {
-        await axios.post(`${config.taskApi}/tasks/create-task`, values);
+        await axios.post(`${config.Api}/tasks/create-task`, values);
         alert("Task created sucessfull");
         formikbag.resetForm();
         navigate("/dashboard");
