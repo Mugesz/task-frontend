@@ -33,7 +33,7 @@ const EditTask = () => {
     onSubmit: async (values, formikbag) => {
       try {
         await axios.put(
-          `http://localhost:5050/tasks/edit-task/${id}`,
+          `${config.taskApi}/tasks/edit-task/${id}`,
           values
         );
 
