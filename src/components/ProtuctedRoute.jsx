@@ -1,16 +1,23 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import { isAuthenticated } from "./authService";
 
 const ProtuctedRoute = () => {
+  const auth = isAuthenticated();
   return (
     <>
-      <div style={{ overflowY: "auto", maxHeight: "100vh" }}>
-        <Navbar />
-      </div>
-
-      <hr style={{ color: "grey" }} />
-      <Outlet />
+      {auth ? (
+        <div>
+          <div style={{ overflowY: "auto", maxHeight: "100vh" }}>
+            <Navbar />
+          </div>
+          <hr style={{ color: "grey" }} />
+          <Outlet />
+        </div>
+      ) : (
+        <Navigate to="/" />
+      )}
     </>
   );
 };

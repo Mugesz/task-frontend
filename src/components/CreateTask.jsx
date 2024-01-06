@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { DarkModeContext } from "./Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { config } from "../confij";
 
 const CreateTask = () => {
   const navigate = useNavigate();
@@ -23,14 +24,14 @@ const CreateTask = () => {
       }
       if (!values.date) {
         errors.date = "Please provide a valid date";
-      } else if (new Date(values.date) < new Date()) {
+      } else if (new Date(values.date) <= new Date()) {
         errors.date = "Please provide a future date";
       }
       return errors;
     },
     onSubmit: async (values, formikbag) => {
       try {
-        await axios.post("http://localhost:5050/tasks/create-task", values);
+        await axios.post(`${config.taskApi}/tasks/create-task`, values);
         alert("Task created sucessfull");
         formikbag.resetForm();
         navigate("/dashboard");

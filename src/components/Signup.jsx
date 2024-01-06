@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
+import { config } from "../confij";
 
 const Signup = () => {
   const formik = useFormik({
@@ -43,7 +44,7 @@ const Signup = () => {
     },
     onSubmit: async (values,formikbag) => {
       try {
-        await axios.post("http://localhost:5050/signup", values);
+        await axios.post(`${config.authApi}/signup`, values);
         alert("user created");
         formikbag.resetForm();
       } catch (error) {

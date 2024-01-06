@@ -2,24 +2,25 @@ import React, { useContext, useEffect } from "react";
 import { DarkModeContext } from "./Context";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { config } from "../confij";
 
 const ViewTask = () => {
-  const params = useParams();
+  const { id } = useParams();
   const { viewTask, setViewTask } = useContext(DarkModeContext);
 
   const fetchSingletask = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5050/tasks/${params.id}`
-      );
+      const response = await axios.get(`${config.taskApi}/tasks/${id}`);
       setViewTask(response.data);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    fetchSingletask();
-  }, [params.id, viewTask]);
+    if (!viewTask || viewTask.length === 0) {
+      fetchSingletask();
+    }
+  }, [id, viewTask]);
 
   if (!viewTask || viewTask.length === 0) {
     return <div>Loading...</div>;

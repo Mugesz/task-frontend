@@ -1,13 +1,14 @@
 import { useFormik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { DarkModeContext } from "./Context";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { config } from "../confij";
 
 const EditTask = () => {
-  const params = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
-  const { darkMode, fetchTasks } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -32,19 +33,30 @@ const EditTask = () => {
     onSubmit: async (values, formikbag) => {
       try {
         await axios.put(
-          `http://localhost:5050/tasks/edit-task/${params.id}`,
+          `http://localhost:5050/tasks/edit-task/${id}`,
           values
         );
-        fetchTasks();
+
         formikbag.resetForm();
         navigate("/dashboard");
-        fetchTasks();
       } catch (error) {
         console.log(error);
         alert("something went wrong");
       }
     },
   });
+
+  useEffect(() => {
+    const fetchSingletask = async () => {
+      try {
+        const response = await axios.get(`${config.taskApi}/tasks/${id}`);
+        formik.setValues(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSingletask();
+  }, []);
   return (
     <div>
       <div
@@ -116,9 +128,13 @@ const EditTask = () => {
                   </span>
                 </div>
                 <div className="text-center">
-                  <button type="submit" className="btn btn-success">
-                    update
-                  </button>
+                  <div className="col-lg-12 mt-4">
+                    <input
+                      type="submit"
+                      className="btn btn-primary"
+                      value={"Update"}
+                    />
+                  </div>
                 </div>
               </form>
             </div>
