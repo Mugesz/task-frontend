@@ -9,8 +9,9 @@ export const login = async (value) => {
       throw new Error("Invalid response received");
     }
     localStorage.setItem("token", response.data.token);
-    console.log(response.data);
+    // console.log(response.data);
   } catch (error) {
+    alert("username or password incorrect")
     throw new Error(error.response?.data?.message);
   }
 };
