@@ -51,6 +51,7 @@ const Dashboard = () => {
 
   const renderTasks = (taskList, categoryTitle) => {
     return (
+      <>
       <div className="col-sm-6">
         <h2>{categoryTitle}</h2>
         {taskList.length > 0 ? (
@@ -79,6 +80,7 @@ const Dashboard = () => {
           <p>No tasks in this category.</p>
         )}
       </div>
+      </>
     );
   };
 

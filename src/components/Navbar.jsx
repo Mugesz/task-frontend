@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "./authService";
+
 import { DarkModeContext } from "./Context";
 
 const Navbar = () => {
@@ -11,18 +11,18 @@ const Navbar = () => {
     document.body.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  const handleLogout = () => {
-    alert("Are you sure you want to logout");
-    logout();
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   alert("Are you sure you want to logout");
+  //   logout();
+  //   navigate("/");
+  // };
 
   return (
     <nav className="navbar navbar-expand-lg bgforNav fixed-top">
       <div className="container-fluid">
         <Link
           className="btn text-light"
-          to={"/dashboard"}
+          to={"/"}
         >
           TASKS
         </Link>
@@ -66,7 +66,7 @@ const Navbar = () => {
           <button
             className="btn btn-danger btn-user btn-block "
             type="submit"
-            onClick={() => handleLogout()}
+            // onClick={() => handleLogout()}
           >
             Logout
           </button>
