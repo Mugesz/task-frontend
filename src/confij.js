@@ -1,4 +1,4 @@
 export const config = {
-  Api: "`https://mugesh-task-management.onrender.com`",
+  Api: "http://localhost:5050",
 
 };

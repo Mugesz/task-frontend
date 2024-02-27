@@ -33,12 +33,12 @@ const EditTask = () => {
     onSubmit: async (values, formikbag) => {
       try {
         await axios.put(
-          `${config.Api}/tasks/edit-task/${id}`,
+          `${config.Api}/tasks/${id}`,
           values
         );
 
         formikbag.resetForm();
-        navigate("/dashboard");
+        navigate("/");
       } catch (error) {
         console.log(error);
         alert("something went wrong");

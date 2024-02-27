@@ -14,8 +14,7 @@ function App() {
   return (
     <DarkModeProvider>
       <BrowserRouter>
-        <Routes>
-         
+        <Routes>  
           <Route element={<ProtuctedRoute />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/create-task" element={<CreateTask />} />
