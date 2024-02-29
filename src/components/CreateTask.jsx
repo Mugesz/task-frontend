@@ -34,7 +34,7 @@ const CreateTask = () => {
         await axios.post(`${config.Api}/tasks/create-task`, values);
         alert("Task created sucessfull");
         formikbag.resetForm();
-        navigate("/dashboard");
+        navigate("/");
         fetchTasks();
       } catch (error) {
         alert("Failed to create task");

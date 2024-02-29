@@ -8,7 +8,7 @@ import { config } from "../confij";
 const EditTask = () => {
   const {id} = useParams();
   const navigate = useNavigate();
-  const { darkMode } = useContext(DarkModeContext);
+  const { darkMode,fetchTasks } = useContext(DarkModeContext);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -39,6 +39,7 @@ const EditTask = () => {
 
         formikbag.resetForm();
         navigate("/");
+        fetchTasks()
       } catch (error) {
         console.log(error);
         alert("something went wrong");
