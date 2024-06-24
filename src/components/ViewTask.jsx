@@ -28,7 +28,7 @@ const ViewTask = () => {
 
   return (
     <div key={viewTask.id} className="container-fluid">
-      <div className="card bg-info">
+      <div className="card bg-view">
         <h1 className="card-header text-center">
           {" "}
           <b>Title</b> : {viewTask.title}

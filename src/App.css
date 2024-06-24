@@ -71,3 +71,6 @@ body.light {
 .bgforNav {
   background: #34495e !important;
 }
+.bg-view{
+  background-color: rgb(149, 183, 255) !important;
+}

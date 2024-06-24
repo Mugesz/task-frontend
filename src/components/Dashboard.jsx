@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [thisMonthTasks, setThisMonthTasks] = useState([]);
   const [nextMonthTasks, setNextMonthTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingTasks, setLoadingTasks] = useState({});
 
   useEffect(() => {
     if (tasks) {
@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, [tasks]);
 
   const deleteTask = async (id) => {
-    setLoading(true);
+    setLoadingTasks((prev) => ({ ...prev, [id]: true }));
     try {
       await axios.delete(`${config.Api}/tasks/${id}`);
       alert("Task Deleted");
@@ -44,7 +44,7 @@ const Dashboard = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoadingTasks((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -72,9 +72,9 @@ const Dashboard = () => {
                 <button
                   onClick={() => deleteTask(item._id)}
                   className="btn btn-danger leftmargin"
-                  disabled={loading}
+                  disabled={loadingTasks[item._id]}
                 >
-                  {loading ? "Deleting..." : "Delete"}
+                  {loadingTasks[item._id] ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
