@@ -62,15 +62,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="">
-          <button
-            className="btn btn-danger btn-user btn-block "
-            type="submit"
-            // onClick={() => handleLogout()}
-          >
-            Logout
-          </button>
-        </div>
+  
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { DarkModeContext } from "./Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,9 @@ import { config } from "../confij";
 
 const CreateTask = () => {
   const navigate = useNavigate();
-  const { darkMode,fetchTasks } = useContext(DarkModeContext);
+  const { darkMode, fetchTasks } = useContext(DarkModeContext);
+  const [loading, setLoading] = useState(false);
+  
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -30,14 +32,17 @@ const CreateTask = () => {
       return errors;
     },
     onSubmit: async (values, formikbag) => {
+      setLoading(true);
       try {
         await axios.post(`${config.Api}/tasks/create-task`, values);
-        alert("Task created sucessfull");
+        alert("Task created successfully");
         formikbag.resetForm();
         navigate("/");
         fetchTasks();
       } catch (error) {
         alert("Failed to create task");
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -55,69 +60,77 @@ const CreateTask = () => {
               <h3 className="text-center">
                 <u>Add Task</u>
               </h3>
-              <form onSubmit={formik.handleSubmit}>
-                <div className="input-container mb-3">
-                  <label className="form-label" htmlFor="title">
-                    Title:
-                  </label>
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="Title..."
-                    className="form-control input-field"
-                    autoComplete="true"
-                    value={formik.values.title}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <span className="text-danger">
-                    {formik.touched.title && formik.errors.title}
-                  </span>
-                </div>
-                <div className="input-container mb-3">
-                  <label className="form-label" htmlFor="about">
-                    About:
-                  </label>
-                  <textarea
-                    type="text"
-                    id="about"
-                    name="about"
-                    placeholder="Task to done ..."
-                    className="form-control input-field"
-                    autoComplete="true"
-                    value={formik.values.about}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <span className="text-danger">
-                    {formik.touched.about && formik.errors.about}
-                  </span>
-                </div>
-                <div className="input-container mb-3">
-                  <label className="form-label" htmlFor="date">
-                    Date:
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    className="form-control input-field"
-                    autoComplete="true"
-                    value={formik.values.date}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <span className="text-danger">
-                    {formik.touched.date && formik.errors.date}
-                  </span>
-                </div>
+              {loading ? (
                 <div className="text-center">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                 </div>
-              </form>
+              ) : (
+                <form onSubmit={formik.handleSubmit}>
+                  <div className="input-container mb-3">
+                    <label className="form-label" htmlFor="title">
+                      Title:
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="Title..."
+                      className="form-control input-field"
+                      autoComplete="true"
+                      value={formik.values.title}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    <span className="text-danger">
+                      {formik.touched.title && formik.errors.title}
+                    </span>
+                  </div>
+                  <div className="input-container mb-3">
+                    <label className="form-label" htmlFor="about">
+                      About:
+                    </label>
+                    <textarea
+                      type="text"
+                      id="about"
+                      name="about"
+                      placeholder="Task to be done ..."
+                      className="form-control input-field"
+                      autoComplete="true"
+                      value={formik.values.about}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    <span className="text-danger">
+                      {formik.touched.about && formik.errors.about}
+                    </span>
+                  </div>
+                  <div className="input-container mb-3">
+                    <label className="form-label" htmlFor="date">
+                      Date:
+                    </label>
+                    <input
+                      type="date"
+                      id="date"
+                      name="date"
+                      className="form-control input-field"
+                      autoComplete="true"
+                      value={formik.values.date}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    <span className="text-danger">
+                      {formik.touched.date && formik.errors.date}
+                    </span>
+                  </div>
+                  <div className="text-center">
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>

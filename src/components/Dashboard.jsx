@@ -5,11 +5,11 @@ import axios from "axios";
 import { config } from "../confij";
 
 const Dashboard = () => {
-
   const { tasks, fetchTasks } = useContext(DarkModeContext);
   const [thisMonthTasks, setThisMonthTasks] = useState([]);
   const [nextMonthTasks, setNextMonthTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (tasks) {
@@ -36,12 +36,15 @@ const Dashboard = () => {
   }, [tasks]);
 
   const deleteTask = async (id) => {
+    setLoading(true);
     try {
       await axios.delete(`${config.Api}/tasks/${id}`);
       alert("Task Deleted");
       fetchTasks();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +54,6 @@ const Dashboard = () => {
 
   const renderTasks = (taskList, categoryTitle) => {
     return (
-      <>
       <div className="col-sm-6">
         <h2>{categoryTitle}</h2>
         {taskList.length > 0 ? (
@@ -70,8 +72,9 @@ const Dashboard = () => {
                 <button
                   onClick={() => deleteTask(item._id)}
                   className="btn btn-danger leftmargin"
+                  disabled={loading}
                 >
-                  Delete
+                  {loading ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
@@ -80,7 +83,6 @@ const Dashboard = () => {
           <p>No tasks in this category.</p>
         )}
       </div>
-      </>
     );
   };
 
